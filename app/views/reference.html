@@ -13,16 +13,61 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">Heading or question goes here</h1>
+      <h1 class="govuk-heading-xl">National Insurance or HMRC reference number</h1>
 
       <form class="form" action="/url/of/next/page" method="post">
 
-        <p>[Insert question content here]</p>
+        {{ govukInput({
+          label: {
+            text: "HMRC reference number"
+          },
+          hint: {
+            text: "This must be a reference for an active Self Assessment. It will be 10 characters long. If you're in a partnership, enter your individual reference number."
+          },
+          classes: "govuk-input--width-10",
+          id: "national-insurance-number",
+          name: "national-insurance-number",
+          spellcheck: false
+        }) }}
 
-        {{ govukDetails({
-  summaryText: "Help with nationality",
-  text: "We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post."
-}) }}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+          idPrefix: "hmrc-ref",
+          name: "hmrc-ref",
+          fieldset: {
+            legend: {
+              text: "What type of HMRC reference number did you use?"
+            }
+          },
+          items: [
+            {
+              value: "individual",
+              text: "Self Assessment individual unique taxpayer reference"
+            },
+            {
+              value: "trust",
+              text: "Self Assessment trust and estate unique taxpayer reference"
+            },
+            {
+              value: "none",
+              text: "None - I am using my National Insurance number"
+            }
+          ]
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "National Insurance number"
+          },
+          hint: {
+            text: "It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
+          },
+          classes: "govuk-input--width-10",
+          id: "national-insurance-number",
+          name: "national-insurance-number",
+          spellcheck: false
+        }) }}
 
         <button class="govuk-button" data-module="govuk-button">Continue</button>
 
