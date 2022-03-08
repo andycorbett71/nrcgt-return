@@ -13,23 +13,10 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">How should we contact your agent?</h1>
-
-      <form class="form" action="/type" method="post">
-
+      <h1 class="govuk-heading-xl">What is the address of the property or land you sold?</h1>
       {% from "govuk/components/input/macro.njk" import govukInput %}
-
       {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
-              {{ govukInput({
-                label: {
-                  text: "Full name"
-                },
-                id: "full-name",
-                name: "full-name",
-                autocomplete: "name",
-                spellcheck: false
-              }) }}
         {{ govukInput({
           label: {
             html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
@@ -68,36 +55,40 @@
           autocomplete: "postal-code"
         }) }}
 
-        {{ govukInput({
-  label: {
-    text: "UK telephone number"
+        {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+        {{ govukDateInput({
+          id: "disposal-date",
+          namePrefix: "disposal-date",
+          fieldset: {
+            legend: {
+              text: "When did you sell or give away the property or land?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "For example, 27 3 2007"
+          }
+        }) }}
+        {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{{ govukDateInput({
+  id: "conveyance",
+  namePrefix: "conveyance",
+  fieldset: {
+    legend: {
+      text: "When did you convey or transfer the asset?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
   },
-  id: "telephone-number",
-  name: "telephone-number",
-  type: "tel",
-  autocomplete: "tel",
-  classes: "govuk-input--width-20"
+  hint: {
+    text: "For example, 27 3 2007"
+  }
 }) }}
 
-{{ govukInput({
-  label: {
-    text: "Email address"
-  },
-  id: "email",
-  name: "email",
-  type: "email",
-  autocomplete: "email",
-  spellcheck: false
-}) }}
-
-{{ govukInput({
-  label: {
-    text: "Client reference"
-  },
-  id: "client-ref",
-  name: "client-ref",
-  spellcheck: false
-}) }}
+      <form class="form" action="/check-answers" method="post">
 
         <button class="govuk-button" data-module="govuk-button">Continue</button>
 

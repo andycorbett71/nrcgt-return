@@ -13,13 +13,59 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">Heading or question goes here</h1>
+      <h1 class="govuk-heading-xl">Authorise an agent to act for you</h1>
 
-      <form class="form" action="/type" method="post">
+      <form class="form" action="/agent" method="post">
 
-        <p>[Insert question content here]</p>
+        {% from "govuk/components/input/macro.njk" import govukInput %}
 
-        <p>[See <a href="https://design-system.service.gov.uk">the GOV.UK Design System</a> for examples]</p>
+        {{ govukCheckboxes({
+          idPrefix: "no-agent",
+          name: "no-agent",
+          fieldset: {
+            legend: {
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "noagent",
+              text: "I do not have an agent"
+            }
+          ]
+        }) }}
+
+<p>or</p>
+
+        {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+
+        {{ govukFileUpload({
+          id: "file-upload-1",
+          name: "file-upload-1",
+          label: {
+            text: "Upload authorisation for your agent to act for you"
+          }
+        }) }}
+
+        {{ govukCheckboxes({
+          idPrefix: "auth-agent",
+          name: "auth-agent",
+          fieldset: {
+            legend: {
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "authorise",
+              text: "I authorise my agent to act on my behalf for Capital Gains Tax"
+            },
+            {
+              value: "correspondence",
+              text: "Please send all correspondence to my agent"
+            }
+          ]
+        }) }}
 
         <button class="govuk-button" data-module="govuk-button">Continue</button>
 
